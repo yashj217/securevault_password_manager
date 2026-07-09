@@ -120,7 +120,7 @@ def register():
                 ):
 
                     print(f"\n✅ Welcome, {username}!")
-                    return True
+                    return username
 
                 break
 
@@ -134,4 +134,4 @@ def register():
         else:
             print("❌ Maximum Login Attempts Reached.")
 
-    return False
+    return None

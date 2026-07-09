@@ -53,7 +53,7 @@ def show_password_menu():
     print("=" * 45)
 
 
-def password_manager():
+def password_manager(current_user):
 
     while True:
 
@@ -113,10 +113,10 @@ def main():
 
         elif choice == "2":
 
-            if login():
-
-                password_manager()
-
+            current_user = login()
+            if current_user:
+                password_manager(current_user)
+        
         elif choice == "3":
 
             print("Thank You For Using SecureVault.")
@@ -130,4 +130,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
