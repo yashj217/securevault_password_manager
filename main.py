@@ -17,7 +17,7 @@ from password_manager import (
     update_password,
     delete_password,
 )
-# from backup import backup_passwords, restore_passwords
+from backup import backup_passwords, restore_passwords
 from generator import generate_password
 
 
@@ -47,9 +47,9 @@ def show_password_menu():
     print("4. Update Password")
     print("5. Delete Password")
     print("6. Generate Strong Password")
-    # print("7. Backup Passwords")
-    # print("8. Restore Passwords")
-    print("7. Logout")
+    print("7. Backup Passwords")
+    print("8. Restore Passwords")
+    print("9. Logout")
     print("=" * 45)
 
 
@@ -82,13 +82,13 @@ def password_manager(current_user):
 
             print("\nGenerated Password:", password)
 
-        # elif choice == "7":
-        #     backup_passwords()
-
-        # elif choice == "8":
-        #     restore_passwords()
-
         elif choice == "7":
+            backup_passwords()
+
+        elif choice == "8":
+            restore_passwords()
+
+        elif choice == "9":
 
             print("Logged Out Successfully.")
 
