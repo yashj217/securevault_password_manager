@@ -102,4 +102,127 @@ def add_password(current_user):
 
     save_passwords(passwords)
 
-    print("✅ Password Added Successfully.")        
+    print("✅ Password Added Successfully.")       
+
+def view_passwords(current_user):
+    """
+    Displays all passwords of the logged-in user.
+    """
+
+    passwords = load_passwords()
+
+    print("\n========== SAVED PASSWORDS ==========")
+
+    found = False
+
+    for record in passwords:
+
+        if record["owner"] == current_user:
+
+            print(f"\nWebsite    : {record['website']}")
+            print(f"Username   : {record['username']}")
+            print(f"Password   : {decrypt_password(record['password'])}")
+            print(f"Created At : {record['created_at']}")
+
+            found = True
+
+    if not found:
+        print("❌ No Passwords Found.")   
+
+def search_password(current_user):
+    """
+    Searches a password by website.
+    """
+
+    passwords = load_passwords()
+
+    website = input("Enter Website Name: ").strip()
+
+    found = False
+
+    for record in passwords:
+
+        if (
+            record["owner"] == current_user
+            and record["website"].lower() == website.lower()
+        ):
+
+            print(f"\nWebsite    : {record['website']}")
+            print(f"Username   : {record['username']}")
+            print(f"Password   : {decrypt_password(record['password'])}")
+            print(f"Created At : {record['created_at']}")
+
+            found = True
+            break
+
+    if not found:
+        print("❌ Password Not Found.")     
+
+def update_password(current_user):
+    """
+    Updates an existing password.
+    """
+
+    passwords = load_passwords()
+
+    website = input("Enter Website Name: ").strip()
+
+    for record in passwords:
+
+        if (
+            record["owner"] == current_user
+            and record["website"].lower() == website.lower()
+        ):
+
+            new_password = input("Enter New Password: ").strip()
+
+            valid, message = validate_password(new_password)
+
+            if not valid:
+                print(f"❌ {message}")
+                return
+
+            record["password"] = encrypt_password(new_password)
+
+            save_passwords(passwords)
+
+            print("✅ Password Updated Successfully.")
+
+            return
+
+    print("❌ Website Not Found.")       
+
+def delete_password(current_user):
+     """
+    Deletes a saved password.
+    """
+
+     passwords = load_passwords()
+
+     website = input("Enter Website Name: ").strip()
+
+     updated_passwords = []
+#creates a new list which will contain the new password and will remove the password whaich was to be deleted
+     found = False
+
+     for record in passwords:
+
+        if (
+            record["owner"] == current_user
+            and record["website"].lower() == website.lower()
+        ):
+
+            found = True
+            continue
+
+        updated_passwords.append(record)
+
+     if found:
+
+        save_passwords(updated_passwords)
+
+        print("✅ Password Deleted Successfully.")
+
+     else:
+
+        print("❌ Website Not Found.")      

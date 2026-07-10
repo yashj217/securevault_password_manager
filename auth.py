@@ -15,7 +15,7 @@ import os
 import bcrypt
 
 from validator import validate_password
-
+from validator import password_strength
 USER_FILE = "data/users.json"
 
 MAX_ATTEMPTS = 3
@@ -68,7 +68,10 @@ def register():
         if not valid:
             print(f"❌ {message}")
             continue
-
+        
+        strength = password_strength(password)
+        print(f"Password Strength: {strength}")
+        
         confirm_password = input("Confirm Password: ").strip()
 
         if password != confirm_password:
@@ -93,19 +96,19 @@ def register():
 
 
 
-    def login():
+def login():
      """
     Authenticates an existing user.
     Returns True if login is successful, otherwise False.
     """
 
-    users = load_users()
+     users = load_users()
 
-    print("\n========== LOGIN ==========")
+     print("\n========== LOGIN ==========")
 
-    attempts = 0
+     attempts = 0
 
-    while attempts < MAX_ATTEMPTS:
+     while attempts < MAX_ATTEMPTS:
 
         username = input("Enter Username: ").strip()
         password = input("Enter Password: ").strip()
@@ -134,4 +137,4 @@ def register():
         else:
             print("❌ Maximum Login Attempts Reached.")
 
-    return None
+     return None
